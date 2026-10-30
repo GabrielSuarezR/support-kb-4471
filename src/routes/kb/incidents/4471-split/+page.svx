@@ -1,0 +1,61 @@
+---
+layout: runbook
+title: '#4471 · three problems, not one'
+owner: support desk
+status: open
+reviewed: 2026-10-29
+signature: Gabriel Suarez
+issues:
+  parser: https://github.com/GabrielSuarezR/support-kb-4471/issues/1
+  hint: https://github.com/GabrielSuarezR/support-kb-4471/issues/2
+  one-day: https://github.com/GabrielSuarezR/support-kb-4471/issues/3
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+[#4471](/kb/incidents/4471) is marked known: one bug, one fix queued. Read the reports and it
+holds three problems. They were merged because their subject lines match
+([decision 0001](/kb/decisions/0001-dedupe-by-subject)), not because they share a cause. The
+queued parser fix closes only the first one.
+
+<Callout kind="warn">
+Not one issue. Three problems, three tickets. Fixing the parser leaves the other two open.
+</Callout>
+
+## The problems
+
+<ProblemTable ticket={4471} {issues} />
+
+- **`parser`**: the shared parser reads every date month first. For a day-first tenant, a
+  booking for 7 April comes out as 4 July. It arrives through the app, email and the
+  booking-v2 form. This is the bug the queued fix is for.
+- **`hint`**: booking-v3 prints `MM/DD/YYYY` under its date field, and day-first tenants run it.
+  People type what the hint says, month first, and the form reads it the tenant's way, day
+  first. The parser fix does not touch it: the hint has to match the tenant's locale.
+- **`one-day`**: the date moves by one day, not by a month flip. One meeting showed Tuesday in
+  Lisbon and Monday in Toronto; one tenant saw every booking in June one day off; one invite
+  arrived before the booking was made. That is a timezone problem, and the desk already noted
+  these reports as one-day moves (`desk-notes.json`). The kb's cause table still counts them
+  under `parser`.
+
+## How the kb's own table counts them
+
+<CauseTable ticket={4471} />
+
+The table above files every report by its tenant's cause, so the one-day moves sit in the
+`parser` row and get a footnote instead of a ticket. The problem table at the top takes them out.
+
+## Counting
+
+- The ticket export comes in overlapping pages, so a report can appear twice. Every count here
+  is by report id.
+- Intake's tag is a guess from the reporter's browser. Each problem is counted by tenant and
+  booking form (`causes.ts`), not by tag.
+- The counts are computed from the export when the page renders. None of them is typed.
+
+<RenderStamp {signature} />
