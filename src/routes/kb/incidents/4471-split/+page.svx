@@ -18,14 +18,20 @@ issues:
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-[#4471](/kb/incidents/4471) is marked known: one bug, one fix queued. Read the reports and it
+[#4471](/kb/incidents/4471) was marked known: one bug, one fix queued. Read the reports and it
 holds three problems. They were merged because their subject lines match
-([decision 0001](/kb/decisions/0001-dedupe-by-subject)), not because they share a cause. The
-queued parser fix closes only the first one.
+([decision 0001](/kb/decisions/0001-dedupe-by-subject)), not because they share a cause.
 
 <Callout kind="warn">
-Not one issue. Three problems, three tickets. Fixing the parser leaves the other two open.
+#4471 closed on 5 October. That closed two of the three problems. The one-day problem is still
+open: nothing in the fix touches it.
 </Callout>
+
+## Where each one stands
+
+- **`parser`**: fixed. `fix(dates): parse dd/mm for eu locales` shipped with the close.
+- **`hint`**: won't fix. Engineering retired the booking-v3 form, and its hint with it.
+- **`one-day`**: open. The parser fix and the retired form both leave it as it was.
 
 ## The problems
 
@@ -33,10 +39,10 @@ Not one issue. Three problems, three tickets. Fixing the parser leaves the other
 
 - **`parser`**: the shared parser reads every date month first. For a day-first tenant, a
   booking for 7 April comes out as 4 July. It arrives through the app, email and the
-  booking-v2 form. This is the bug the queued fix is for.
+  booking-v2 form.
 - **`hint`**: booking-v3 prints `MM/DD/YYYY` under its date field, and day-first tenants run it.
   People type what the hint says, month first, and the form reads it the tenant's way, day
-  first. The parser fix does not touch it: the hint has to match the tenant's locale.
+  first. The parser fix does not touch it; retiring the form does.
 - **`one-day`**: the date moves by one day, not by a month flip. One meeting showed Tuesday in
   Lisbon and Monday in Toronto; one tenant saw every booking in June one day off; one invite
   arrived before the booking was made. That is a timezone problem, and the desk already noted
