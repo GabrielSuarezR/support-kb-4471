@@ -4,7 +4,7 @@ title: '#4471 · three problems, not one'
 owner: support desk
 status: open
 reviewed: 2026-10-29
-signature: Gabriel Suarez
+signature: 'v1.eyJzdWIiOiIyNDMzIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMzMjc1MzAsImV4cCI6MTc5MzQxMzkzMH0._s32LnWT0bpibe4G4tkYixfiVSvLM-lYfbsrPe-eX_s'
 issues:
   parser: https://github.com/GabrielSuarezR/support-kb-4471/issues/1
   hint: https://github.com/GabrielSuarezR/support-kb-4471/issues/2
