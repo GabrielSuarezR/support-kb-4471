@@ -40,15 +40,16 @@ Not one issue. Three problems, three tickets. Fixing the parser leaves the other
 - **`one-day`**: the date moves by one day, not by a month flip. One meeting showed Tuesday in
   Lisbon and Monday in Toronto; one tenant saw every booking in June one day off; one invite
   arrived before the booking was made. That is a timezone problem, and the desk already noted
-  these reports as one-day moves (`desk-notes.json`). The kb's cause table still counts them
-  under `parser`.
+  these reports as one-day moves (`desk-notes.json`). The desk counts them where they are
+  filed, under `parser`, so they appear in both rows.
 
 ## How the kb's own table counts them
 
 <CauseTable ticket={4471} />
 
 The table above files every report by its tenant's cause, so the one-day moves sit in the
-`parser` row and get a footnote instead of a ticket. The problem table at the top takes them out.
+`parser` row and get a footnote instead of a ticket. The problem table at the top keeps that
+count and gives them a ticket of their own.
 
 ## Counting
 
